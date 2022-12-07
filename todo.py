@@ -20,7 +20,7 @@ class Todo(db.Model):
 def index(): 
     todos = Todo.query.all()
     return render_template("index.html",todos=todos)
-
+#asdasasdasdsad
 #complete
 @app.route("/complete/<string:id>")
 def completeTodo(id):
