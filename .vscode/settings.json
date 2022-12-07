@@ -1,0 +1,5 @@
+{
+    "html.format.contentUnformatted": "",
+    "emmet.includeLanguages": {"jinja-html": "html"},
+    "emmet.triggerExpansionOnTab": true
+}
