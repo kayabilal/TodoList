@@ -73,7 +73,36 @@ def delete(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
     db.session.delete(todo)
     db.session.commit()
-    return redirect(url_for("home"))"""
+    return redirect(url_for("home"))
+
+from flask import flash, redirect, render_template, request
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_user
+from my_app import db
+from my_app.api.models import User
+from my_app.api.forms import RegisterForm, LoginForm
+
+from flask import flash, redirect
+from flask_login import login_user,logout_user
+
+todo = Blueprint('tasks', __name__)
+
+@todo.route('/logout', methods = ['POST','GET'])
+def logout():
+    logout_user()
+    return redirect('/home')
+
+@todo.route('/login', methods = ['POST','GET'])
+def login():
+        form = LoginForm()
+        if form.validate_on_submit:
+            user = User.query.filter_by(email = form.email.data).first()
+            if user and check_password_hash(user.password, form.password.data):
+                login_user(user)
+                return redirect('/todos')
+            flash("Invalid details")
+               
+        return render_template('login.html', form=form)"""
 
 if __name__ == "__main__":
     with app.app_context():
